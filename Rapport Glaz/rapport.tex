@@ -290,13 +290,101 @@ Chaque page de l'outil Shaker Data joue un rôle crucial dans le processus de de
 
 La page du plan de financement n'étant pas facile à comprendre au premier abord, il était nécessaire de revoir le style de la page et de mieux agencer certains éléments afin de permettre une meilleure lisibilité. Mais la problématique du multi-projets entrait également en jeu. 
 
+Glaz Tech +Fi, à travers son outil Shaker Data, propose à ses clients de réaliser trois types de projets : 
+les projets de financement immobilier, les projets de financement de \textit{SCPI} (Sociétés Civiles de Placement Immobilier) et les projets de rachat de crédits. \newline
+ \indent Il arrive que les clients de Glaz Tech +Fi aient besoin de réaliser plusieurs projets simultanément. Par exemple, un client peut vouloir financer l'acquisition de parts de SCPI, mais sa situation financière actuelle peut ne pas le permettre pour que la banque accepte de financer son projet. Dans ce cas, le client a deux options : attendre une amélioration de sa situation financière ou entreprendre un projet de rachat de crédits. Si le client opte pour le rachat de crédits, il est probable qu'il souhaite ensuite obtenir un financement pour l'acquisition de SCPI une fois le rachat de crédits finalisé.
 
-\subsection{Les produits favoris}
+Cependant, le Shaker Data n'a pas été initialement conçu pour gérer la réalisation de plusieurs projets successifs. Il a été conçu pour financer un seul type de projet à la fois, ce qui signifie qu'il n'est pas possible de réaliser un projet de financement de SCPI et un projet de rachat de crédits simultanément. Pour pouvoir gérer ce type de dossier de financement, des améliorations doivent être apportées au Shaker Data.
 
-\section{La refonte SCPI}
+Ainsi, je me suis occupé de la partie essentiellement \textit{front-end} de la page plan de financement pour cette nouvelle fonctionnalité du multi-projets.
+
+Pour cela, une web-designeuse a pu nous aidé en réalisant la maquette par rapport à laquelle je devais me baser pour changer le style de la page. 
+La voici ci-dessous.
+L'introduction de la fonctionnalité permettant de gérer plusieurs projets simultanément a augmenté la complexité de l'utilisation du Shaker Data. Les utilisateurs sont passés d'un parcours où ils géraient un seul dossier à un parcours où ils doivent gérer plusieurs dossiers. Cette augmentation de la complexité a nécessité une refonte de l'interface utilisateur du Shaker Data.
+
+En optimisant la page du plan de financement, notre objectif est d'améliorer l'expérience utilisateur et de faciliter la gestion de plusieurs projets au sein du Shaker Data.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=15cm]{img/page1Maquette-1.png}
+  \caption{Maquette Type de la refonte graphique}
+\end{figure}
+
+\clearpage
+
+\subsection{La refonte des produits}
+Initialement, ma tâche consistait à modifier le style des blocs de produits et leurs détails pour qu'ils se rapprochent au maximum de la maquette. Cependant, j'ai également dû intégrer la fonctionnalité des produits favoris dans cette refonte. Cette fonctionnalité permet à l'utilisateur de sélectionner jusqu'à trois produits favoris, parmi lesquels il pourra ensuite choisir celui qu'il souhaite envoyer en banque.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=14cm]{img/ProduitsAvant.png}
+  \caption{La section des produits avant la refonte}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=14cm]{img/ProduitsApres.png}
+  \caption{La section des produits après la refonte}
+\end{figure}
+
+La page est maintenant plus lisible et plus agréable à visualiser pour l'utilisateur.
+
+\clearpage
+
+
+.
+\section{La refonte \textit{SCPI}}
+Les Sociétés Civiles de Placement Immobilier (\textit{SCPI}) offrent aux investisseurs individuels une opportunité d'investir dans le secteur immobilier. En investissant dans des SCPI, les investisseurs acquièrent des parts de ces sociétés qui, à leur tour, possèdent des biens immobiliers. Les loyers générés par ces biens sont ensuite redistribués aux investisseurs proportionnellement au nombre de parts qu'ils détiennent.
+
+L'un des principaux avantages des SCPI par rapport à l'investissement direct dans l'immobilier est qu'elles permettent aux investisseurs de bénéficier des avantages de l'immobilier sans avoir à gérer les contraintes associées à la possession d'un bien immobilier. Cela comprend la recherche de locataires, la gestion des travaux d'entretien, le traitement des impayés, et bien plus encore. Cependant, il est important de noter que les SCPI ne sont pas exemptes de risques. Leur rendement peut varier en fonction des conditions économiques générales.
+
+Dans le Shaker Data, la gestion des SCPI a été initialement conçue pour répondre aux besoins spécifiques de notre premier mandataire, le Crédit Foncier et Communal d'Alsace et de Lorraine (CFCAL). Ce choix a été fait lors de la création de notre application pour accélérer son développement. Cependant, aujourd'hui, Glaz Tech +Fi obtient de plus en plus de mandats de banques dont les modes de fonctionnement diffèrent de celui du CFCAL. Il est donc crucial d'adapter la manière dont le Shaker Data gère le financement des SCPI. L'objectif est de rendre l'outil suffisamment flexible pour s'adapter aux différents modes de fonctionnement de nos diverses banques partenaires.
+
+\subsection{La solution à la refonte SCPI}
+Pour gérer le financement des SCPI au sein du Shaker Data, nous avons décidé d'adopter une modélisation minimale des SCPI. Cette décision a été prise en raison de la nature fluctuante et évolutive des données relatives aux différentes SCPI. Les caractéristiques des SCPI, telles que le prix d'entrée, le rendement et les conditions de souscription, peuvent varier régulièrement. Si nous avions choisi une intégration complète avec une mise à jour régulière de toutes les données des SCPI, cela aurait entraîné une complexité accrue et des contraintes de maintenance importantes.
+
+Notre modélisation des SCPI comprend donc :
+- Une table pour représenter les SCPI
+- Une table pour représenter les sociétés de gestion
+
+La table des SCPI dans notre base de données est conçue pour stocker uniquement le nom de la SCPI et être liée à une société de gestion spécifique. Son objectif principal est de fournir une référence claire aux différentes SCPI finançables par nos banques partenaires. La table des sociétés de gestion a été créée pour stocker des informations détaillées sur chaque société de gestion, y compris le nom, l'adresse, les coordonnées de contact, et d'autres informations pertinentes. Cette table nous permet de recueillir et de conserver des informations complètes sur nos fournisseurs de SCPI.
+
+Pour faciliter la saisie des SCPI pour nos utilisateurs, nous avons restructuré l'écran pour rendre le processus de sélection de SCPI aussi intuitif que possible. Auparavant, la saisie d'un projet de SCPI était assez simple : l'utilisateur sélectionnait son projet de SCPI et indiquait le montant qu'il souhaitait investir. La banque proposait ensuite au client un type de SCPI correspondant à ses besoins. Cependant, nous avons décidé de modifier cette approche pour permettre à nos utilisateurs de choisir précisément les SCPI qu'ils souhaitent financer.
+
+Pour ce faire, nous nous sommes inspirés de notre partenaire historique, le CFCAL. Nous avons décidé de demander à l'utilisateur de commencer par indiquer la société de gestion avec laquelle il souhaite travailler. En fournissant cette information, le Shaker Data peut proposer à l'utilisateur uniquement les SCPI proposées par la société de gestion sélectionnée. L'utilisateur peut ensuite choisir la SCPI spécifique qu'il souhaite financer.
+
+Grâce à cette nouvelle structuration de la saisie des projets de SCPI, nous pouvons offrir à nos utilisateurs une expérience plus fluide et adaptée à leurs besoins spécifiques en matière de financement de SCPI. En leur permettant de choisir précisément la SCPI qui correspond à leurs préférences, nous améliorons leur expérience utilisateur.
+
+\clearpage
+
+ \begin{figure}[!ht]
+  \centering
+  \includegraphics[width=17cm]{img/projetPageAvant.png}
+  \caption{La saisie d'acquisition de SCPI avant la refonte SCPI}
+\end{figure}
+ \begin{figure}[!ht]
+  \centering
+  \includegraphics[width=17cm]{img/projetPageApres.png}
+  \caption{La saisie d'acquisition de SCPI après la refonte SCPI}
+\end{figure}
+\clearpage
+\clearpage
+
+
 
 \section{Les comptes bancaires}
- 
+L'éligibilité à certains produits bancaires est souvent déterminée par la date d'ouverture du compte bancaire du client. Si le compte a été ouvert après une certaine date, le client est considéré comme un prospect, c'est-à-dire qu'il n'est pas encore un client de longue date de la banque et peut ne pas avoir accès à tous les avantages que la banque offre à ses clients plus établis.
+
+Une des améliorations que j'ai apportées à l'outil Shaker Data est la fonctionnalité permettant de saisir les détails des comptes bancaires du client. Cette fonctionnalité facilite la collecte et l'analyse des informations bancaires du client, contribuant ainsi à une évaluation plus précise de son éligibilité aux différents produits bancaires.
+
+Grâce à cette nouvelle saisie possible des comptes bancaires du client et de la date d'ouverture de ceux-ci, l'analyse des produits éligibles au dossier est plus fine, plus précise et se rapproche encore plus de la réalité et de l'étude de faisabilité réélle du dossier par les banques.
+
+ \begin{figure}[!ht]
+  \centering
+  \includegraphics[width=17cm]{img/compteDeBanque.png}
+  \caption{La saisie des comptes bancaires}
+\end{figure}
+
+
 \SpecialSection{Conclusion}
 Avec l'aide des différents outils de gestion de relation et client et la plate-forme de développement de \slf{}, j'ai pu concevoir et développer, en équipe, un outil facilitant le travail des gestionnaires de patrimoine en proposant un suivi personnel et financier de leurs clients.
 ~\\\indent Lors de ce stage j'ai donc pu acquérir de nouvelles connaissances ainsi que de nouvelles compétences. En effet, j'ai découvert \slf{} et l'outil de gestion de relation client qu'il est, ainsi que sa plateforme de développement. En outre, j'ai pu mettre en pratique la méthode agile ainsi que les bonnes pratiques de code. En effet, ayant travaillé au long du stage au sein d'une équipe de développeurs, j'ai été forcément amené à retravailler du code qui n'était pas le mien. C'est grâce à cela que j'ai compris combien il était important de structurer et de documenter son code, comme j'ai pu l'apprendre lors du DUT, afin que les prochaines personnes qui le retravaille puisse le comprendre facilement. Cela permet un gain de temps non négligeable sur les développements de chacun. Grâce à l'apprentissage de l'outil Git lors de mes études, j'ai pu facilement assimiler son utilisation au sein de l'entreprise. Mais aussi, l'enseignement de la méthode agile m'a permis de rapidement comprendre la méthodologie de travail de \gz{} à travers sa planification et sa quantification du temps de travail des tâches de chacun. Pour finir sur ce parallèle entre mon stage et ma formation à l'IUT, j'ai pu réutiliser mon apprentissage de différents langages lors du DUT. J'ai pu utilisé du JavaScript, de l'HTML et du CSS mais il y a également l'enseignement du Java que j'ai pu retranscrire en programmant en Apex.
@@ -312,11 +400,6 @@ https://developer.mozilla.org/
 
 
 \Annex{Annexe 1}
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width=15cm]{img/emailQuickAccount.png}
-  \caption{Capture d'écran de l'e-mail envoyé lorsque le gestionnaire remplit le composant ci-dessus}
-\end{figure}
 \newpage
 \Annex{Glossaire}
     \textbf{Gestionnaire de patrimoine} : Le conseiller de gestion en patrimoine gère les actifs de ses clients. C’est un spécialiste de l’investissement qui a pour rôle de fournir des programmes sur mesure à ses clients pour préserver ou accroître leur patrimoine.\newline
